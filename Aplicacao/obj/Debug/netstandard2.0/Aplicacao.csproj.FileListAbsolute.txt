@@ -1,0 +1,5 @@
+C:\Users\Usuário\Documents\ProjetoMVC\Aplicacao\bin\Debug\netstandard2.0\Aplicacao.deps.json
+C:\Users\Usuário\Documents\ProjetoMVC\Aplicacao\bin\Debug\netstandard2.0\Aplicacao.dll
+C:\Users\Usuário\Documents\ProjetoMVC\Aplicacao\obj\Debug\netstandard2.0\Aplicacao.csprojAssemblyReference.cache
+C:\Users\Usuário\Documents\ProjetoMVC\Aplicacao\obj\Debug\netstandard2.0\Aplicacao.AssemblyInfoInputs.cache
+C:\Users\Usuário\Documents\ProjetoMVC\Aplicacao\obj\Debug\netstandard2.0\Aplicacao.AssemblyInfo.cs

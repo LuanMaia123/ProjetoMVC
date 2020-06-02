@@ -1,0 +1,149 @@
+﻿@model Dominio.Modelos.FornecedorListModel
+
+@{
+    ViewData["Title"] = "Lista";
+}
+<div style="padding:10px"><h4>Fornecedores</h4></div>
+<div class="filtro-background">
+    <div id="filtros">
+        <div class="filtros-layout">
+            @using (Html.BeginForm("Index", null, FormMethod.Get, new { id = "filter-form" }))
+            {
+                <div class="content-filtro" style="margin-top:25px">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label class="filtros-titulo">Nome</label>
+                            <input type="text" asp-for="Nome" class="form-control" />
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label class="filtros-titulo">CNPJ</label>
+                            <input id="cnpj" type="text" asp-for="Cnpj" class="form-control" />
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label class="filtros-titulo">CPF</label>
+                            <input id="Cpf" type="text" asp-for="Cpf" class="form-control" />
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label class="filtros-titulo">Data de Cadastro</label>
+                            <input type="date" asp-for="Data" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="acoes">
+                    <div class="painel-botoes">
+                        @Html.HiddenFor(x => x.CurrentPage, new { id = "currentPage" })
+                        @Html.HiddenFor(x => x.TotalPages, new { id = "totalPages" })
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <input type="submit" value="Buscar" class="btn btn-primary btn-block" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input value="Limpar" type="submit" class="btn btn-secondary" name="button" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<table class="table border bg-light ">
+    <thead>
+
+        <tr>
+            <th>
+                @Html.Label("DataCadastro", "Data Cadastro")
+            </th>
+            <th>
+                @Html.Label("Nome", "Nome")
+            </th>
+            <th>
+                @Html.Label("Cpf", "CPF")
+            </th>
+            <th>
+                @Html.Label("Cnpj", "CNPJ")
+            </th>
+            <th>
+                @Html.Label("Empresa", "Empresa")
+            </th>
+            <th scope="col">
+                <a asp-action="AddOrEdit" class="btn btn-outline-success"><i class="fas fa-plus"></i> Fornecedor</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.fornecedores)
+        {
+            <tr id="@item.Id">
+                <td style="width:10%">
+                    @Html.DisplayFor(modelItem => item.dataFormatada)
+                </td>
+                <td style="width:20%">
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td style="width:25%">
+                    @Html.DisplayFor(modelItem => item.Cpf)
+                </td>
+                <td style="width:25%">
+                    @Html.DisplayFor(modelItem => item.Cnpj)
+                </td>
+                <td style="width:10%">
+                    @Html.DisplayFor(modelItem => item.Empresa.NomeFantasia)
+                </td>
+                <td style="width:15%" ;text-align:center">
+                    <a asp-action="AddOrEdit" asp-route-id="@item.Id"><i class="fas fa-edit fa-lg"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger ml-1" onclick="return confirm('Você tem certeza que deseja apagar o fornecedor @item.Nome?')"><i class="far fa-trash-alt fa-lg"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr scope="row" style="margin-top:10px">
+            <th scope="col" colspan="6" style="height:10px">
+                <div style="display:flex; justify-content:center; align-items:center">
+                    <Button disabled="@(Model.HasPrev)" onclick="pageBack()" style="margin-right:9rem" class="btn-page" type="button">
+                        <i class="fas fa-angle-left fa-2x"></i>
+                    </Button>
+                    <span>Exibindo @(Model.PageSize * Model.CurrentPage < Model.Count ? Model.PageSize * Model.CurrentPage : Model.Count) de @Model.Count</span>
+                    <Button type="button" onclick="pageFront()" disabled="@(Model.HasNext)" style="margin-left:9rem;" class="btn-page">
+                        <i class="fas fa-angle-right fa-2x"></i>
+                    </Button>
+                </div>
+            </th>
+        </tr>
+    </tfoot>
+</table>
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://digitalbush.com/wp-content/uploads/2014/10/jquery.maskedinput.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var $cnpj = $("#cnpj");
+            $cnpj.mask('99.999.999/9999-99', { reverse: true });
+            var $Cpf = $("#cpf");
+            $Cpf.mask('999.999.999-99', { reverse: true });
+        });
+
+        function pageBack() {
+            var $first = $("#currentPage");
+            let num = Number(document.querySelector("#currentPage").value);
+            let sum = num - 1;
+            if (num > 1) {
+                $first.val(sum);
+            }
+            $("#filter-form").submit();
+        };
+
+        function pageFront() {
+            var $first = $("#currentPage");
+            let num = Number(document.querySelector("#currentPage").value);
+            let total = Number(document.querySelector("#totalPages").value);
+            let sum = num + 1;
+            if (num < total) {
+                $first.val(sum);
+            }
+            $("#filter-form").submit();
+        };
+    </script>
+}

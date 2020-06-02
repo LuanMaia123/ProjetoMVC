@@ -1,0 +1,5 @@
+C:\Users\Usuário\Documents\ProjetoMVC\Dominio\bin\Debug\netstandard2.0\Dominio.deps.json
+C:\Users\Usuário\Documents\ProjetoMVC\Dominio\bin\Debug\netstandard2.0\Dominio.dll
+C:\Users\Usuário\Documents\ProjetoMVC\Dominio\obj\Debug\netstandard2.0\Dominio.csprojAssemblyReference.cache
+C:\Users\Usuário\Documents\ProjetoMVC\Dominio\obj\Debug\netstandard2.0\Dominio.AssemblyInfoInputs.cache
+C:\Users\Usuário\Documents\ProjetoMVC\Dominio\obj\Debug\netstandard2.0\Dominio.AssemblyInfo.cs

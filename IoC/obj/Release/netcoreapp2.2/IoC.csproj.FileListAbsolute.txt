@@ -1,0 +1,16 @@
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\bin\Release\netcoreapp2.2\IoC.deps.json
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\bin\Release\netcoreapp2.2\IoC.dll
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\bin\Release\netcoreapp2.2\IoC.pdb
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\bin\Release\netcoreapp2.2\Aplicacao.dll
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\bin\Release\netcoreapp2.2\Dados.dll
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\bin\Release\netcoreapp2.2\Dominio.dll
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\bin\Release\netcoreapp2.2\Aplicacao.pdb
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\bin\Release\netcoreapp2.2\Dominio.pdb
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\bin\Release\netcoreapp2.2\Dados.pdb
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\obj\Release\netcoreapp2.2\IoC.csprojAssemblyReference.cache
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\obj\Release\netcoreapp2.2\IoC.AssemblyInfoInputs.cache
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\obj\Release\netcoreapp2.2\IoC.AssemblyInfo.cs
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\obj\Release\netcoreapp2.2\IoC.csproj.CoreCompileInputs.cache
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\obj\Release\netcoreapp2.2\IoC.csproj.CopyComplete
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\obj\Release\netcoreapp2.2\IoC.dll
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\obj\Release\netcoreapp2.2\IoC.pdb

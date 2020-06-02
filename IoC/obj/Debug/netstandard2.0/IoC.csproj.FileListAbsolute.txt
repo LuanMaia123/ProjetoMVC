@@ -1,0 +1,7 @@
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\bin\Debug\netstandard2.0\IoC.deps.json
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\bin\Debug\netstandard2.0\IoC.dll
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\obj\Debug\netstandard2.0\IoC.AssemblyInfoInputs.cache
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\obj\Debug\netstandard2.0\IoC.AssemblyInfo.cs
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\bin\Debug\netstandard2.0\Aplicacao.dll
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\bin\Debug\netstandard2.0\Dominio.dll
+C:\Users\Usuário\Documents\ProjetoMVC\IoC\obj\Debug\netstandard2.0\IoC.csprojAssemblyReference.cache

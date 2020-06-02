@@ -1,0 +1,60 @@
+﻿@model Dominio.Modelos.EmpresaModel
+
+@{
+    ViewData["Title"] = "Empresa";
+}
+
+<h4>Empresa</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="AddOrEdit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NomeFantasia" class="control-label"></label>
+                <input asp-for="NomeFantasia" class="form-control" />
+                <span asp-validation-for="NomeFantasia" class="text-danger"></span>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="Uf" class="control-label"></label>
+                    <div class="select" style="width: 100%;">
+                        @Html.DropDownListFor(model => model.Uf, Model.EstadoSelect)
+                    </div>
+                    <span asp-validation-for="Uf" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="Cnpj" class="control-label"></label>
+                    <input id="cnpj" maxlength="18"  asp-for="Cnpj" class="form-control" />
+                    <span asp-validation-for="Cnpj" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input type="submit" value="Salvar" class="btn btn-primary btn-block" />
+                </div>
+                <div class="form-group col-md-6">
+                    <a asp-action="Index" class="btn btn-block btn-secondary">Voltar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://digitalbush.com/wp-content/uploads/2014/10/jquery.maskedinput.js"></script>
+    <script type="text/javascript">
+        //$(document).ready(function () {
+        //$("input[id*='cnpj']").inputmask({
+        //    mask: '',
+        //    keepStatic: true
+        //});
+        //}
+        $(document).ready(function () {
+            var $seuCampoCpf = $("#cnpj");
+            $seuCampoCpf.mask('99.999.999/9999-99', { reverse: true });
+        });
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

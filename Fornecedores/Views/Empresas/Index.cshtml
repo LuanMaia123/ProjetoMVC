@@ -1,0 +1,91 @@
+﻿@model Dominio.Modelos.EmpresaListModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div style="padding:10px"><h4>Empresas</h4></div>
+
+<hr />
+<table class="table border bg-light ">
+    @using (Html.BeginForm("Index", null, FormMethod.Get, new { id = "filter-form" }))
+    {
+        @Html.HiddenFor(x => x.CurrentPage, new { id = "currentPage" })
+        @Html.HiddenFor(x => x.TotalPages, new { id = "totalPages" })
+    }
+        <thead>
+            <tr>
+                <th scope="col">
+                    @Html.Label("NomeFantasia", "Nome Fantasia")
+                </th>
+                <th scope="col">
+                    @Html.Label("Uf", "UF")
+                </th>
+                <th scope="col">
+                    @Html.Label("Cnpj", "CNPJ")
+                </th>
+                <th scope="col">
+                    <a asp-action="AddOrEdit" class="btn btn-outline-success">Nova Empresa</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.empresas)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomeFantasia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Uf)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cnpj)
+                    </td>
+                    <td>
+                        <a asp-action="AddOrEdit" asp-route-id="@item.Id"><i class="fas fa-edit fa-lg"></i></a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger ml-1" onclick="return confirm('Você tem certeza que deseja apagar a empresa @item.NomeFantasia?')"><i class="far fa-trash-alt fa-lg"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr scope="row" style="margin-top:10px">
+                <th scope="col" colspan="6" style="height:10px">
+                    <div style="display:flex; justify-content:center; align-items:center">
+                        <Button disabled="@(Model.HasPrev)" onclick="pageBack()" style="margin-right:9rem" class="btn-page" type="button">
+                            <i class="fas fa-angle-left fa-2x"></i>
+                        </Button>
+                        <span>Exibindo @(Model.PageSize * Model.CurrentPage < Model.Count ? Model.PageSize * Model.CurrentPage : Model.Count) de @Model.Count</span>
+                        <Button type="button" onclick="pageFront()" disabled="@(Model.HasNext)" style="margin-left:9rem;" class="btn-page">
+                            <i class="fas fa-angle-right fa-2x"></i>
+                        </Button>
+                    </div>
+                </th>
+            </tr>
+        </tfoot>
+    </table>
+@section Scripts {
+   
+    <script type="text/javascript">
+        function pageBack() {
+            var $first = $("#currentPage");
+            let num = Number(document.querySelector("#currentPage").value);
+            let sum = num - 1;
+            if (num > 1) {
+                $first.val(sum);
+            }
+            $("#filter-form").submit();
+        };
+        function pageFront() {
+            var $first = $("#currentPage");
+            let num = Number(document.querySelector("#currentPage").value);
+            let total = Number(document.querySelector("#totalPages").value);
+            let sum = num + 1;
+            if (num < total) {
+                $first.val(sum);
+            }
+            $("#filter-form").submit();
+        };
+    </script>
+}

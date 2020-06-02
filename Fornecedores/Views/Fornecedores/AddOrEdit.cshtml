@@ -1,0 +1,204 @@
+﻿@model Dominio.Modelos.FornecedorModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4>Fornecedor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" id="form">
+            @Html.HiddenFor(x => x.EmpresaId, new { id = "EmpresaId", name = "EmpresaId" })
+            @Html.HiddenFor(x => x.isNovo, new { id = "IsNovo" })
+            @Html.HiddenFor(x => x.EmpresaNome, new { id = "EmpresaNome" })
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @Html.HiddenFor(x => x.DataCadastro)
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input id="juridica" class="form-check-input" asp-for="IsPessoaJuridica" /> @Html.DisplayNameFor(model => model.IsPessoaJuridica)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmpresaId" class="control-label"></label>
+                <div class="autocomplete " style="width:300px;">
+                    <select id="empresa" class="form-control custom-select">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" id="datacond">
+                <label asp-for="DataNascimento" class="control-label"></label>
+                <input type="date" asp-for="DataNascimento" class="form-control" />
+                <span asp-validation-for="DataNascimento" class="text-danger"></span>
+            </div>
+            <div class="form-group" id="rgcond">
+                <label asp-for="Rg" class="control-label"></label>
+                <input id="rg" asp-for="Rg" class="form-control" />
+                <span asp-validation-for="Rg" class="text-danger"></span>
+            </div>
+            <div class="form-group" id="cpfcond">
+                <label asp-for="Cpf" class="control-label"></label>
+                <input id="cpf" asp-for="Cpf" class="form-control" />
+                <span asp-validation-for="Cpf" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group" id="cnpjrend">
+                <label asp-for="Cnpj" class="control-label"></label>
+                <input id="cnpj" asp-for="Cnpj" class="form-control" />
+                <span asp-validation-for="Cnpj" class="text-danger"></span>
+            </div>
+            <div id="telefoneModelsContainer">
+                @Html.EditorFor(model => model.Telefones)
+            </div>
+            <div class="form-group">
+                <input class="btn btn-success" type="button" id="btnAdd" value="Novo Telefone" />
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input type="submit" value="Salvar" class="btn btn-primary btn-block" />
+                </div>
+                <div class="form-group col-md-6">
+                    <a asp-action="Index" class="btn btn-block btn-secondary">Voltar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <script type="text/javascript">
+        var IsNovo = $("#IsNovo").val();
+        if (IsNovo == true) {
+            $("#empresa").select2({
+                placeholder: "Selecione uma empresa",
+                ajax: {
+                    url: "/Fornecedores/GetEmpresas",
+                    dataType: "json",
+                    data: function (params) {
+                        return {
+                            search: params.term
+                        };
+                    },
+                    processResults: function (data, params) {
+                        return {
+                            results: data
+                        };
+                    }
+                }
+            });
+        } else {
+            $("#empresa").select2({
+                language: {
+                    noResults: function () {
+                        return "Nenhum item encontrado";
+                    },
+                },
+                ajax: {
+                    url: "/Fornecedores/GetEmpresas",
+                    dataType: "json",
+                    data: function (params) {
+                        return {
+                            search: params.term
+                        };
+                    },
+                    processResults: function (data, params) {
+                        return {
+                            results: data
+                        };
+                    }
+                }
+            });
+
+            $.ajax({
+                type: 'GET',
+                url: '/Fornecedores/GetEmpresa/' + $("#EmpresaId").val()
+            }).then(function (data) {
+                var option = new Option(data.text, data.id, true, true);
+                $('#empresa').append(option).trigger('change');
+
+                $('#empresa').trigger({
+                    type: 'select2:select',
+                    params: {
+                        data: data
+                    }
+                });
+            });
+        }
+
+        $("#empresa").on("change", function () {
+            $("#EmpresaId").val($('#empresa').val());
+            $("#EmpresaNome").val($('#empresa option:selected').text());
+        });
+
+
+        if ($("#juridica").is(':checked')) {
+            $("#datacond").hide();
+            $("#rgcond").hide();
+            $("#cpfcond").hide();
+            $("#cnpjrend").show();
+        }
+        else {
+            $("#datacond").show();
+            $("#rgcond").show();
+            $("#cpfcond").show();
+            $("#cnpjrend").hide();
+        }
+
+        $("#juridica").on("change", function () {
+            if ($("#juridica").is(':checked')) {
+                $("#datacond").hide();
+                $("#rgcond").hide();
+                $("#cpfcond").hide();
+                $("#cnpjrend").show();
+            }
+            else {
+                $("#datacond").show();
+                $("#rgcond").show();
+                $("#cpfcond").show();
+                $("#cnpjrend").hide();
+            }
+        });
+
+        $("#btnAdd").on('click', function () {
+            $.ajax({
+                async: true,
+                data: $('#form').serialize(),
+                type: "POST",
+                url: '/Fornecedores/AddTelefone',
+                success: function (partialView) {
+                    $('#telefoneModelsContainer').html(partialView);
+                    var $tel = $(".tel");
+                    $tel.mask('(99)99999-9999', { reverse: true });
+                }
+            });
+
+        });
+
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://digitalbush.com/wp-content/uploads/2014/10/jquery.maskedinput.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var $tel = $(".tel");
+            $tel.mask('(99)99999-9999', { reverse: true });
+            var $rg = $("#rg");
+            $rg.mask('99.999.999-9', { reverse: true });
+            var $cnpj = $("#cnpj");
+            $cnpj.mask('99.999.999/9999-99', { reverse: true });
+            var $Cpf = $("#cpf");
+            $Cpf.mask('999.999.999-99', { reverse: true });
+        });
+    </script>
+}

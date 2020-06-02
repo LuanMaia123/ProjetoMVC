@@ -1,0 +1,6 @@
+﻿@model Dominio.Modelos.TelefoneModel
+<div class="form-group">
+    <label asp-for="Numero" class="control-label"></label>
+    <input minlength="14" type="text" asp-for="Numero" class="form-control tel" />
+    <span asp-validation-for="Numero" class="text-danger"></span>
+</div>
