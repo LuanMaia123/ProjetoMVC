@@ -5,10 +5,6 @@
 - Bootstrap/FontAwesome
 - AutoMapper
 
-# Como executar
-Executar os seguintes comandos:
-- dotnet ef migrations add InitialCreate -p .\Dados -s .\Fornecedores
-- dotnet ef database update -p .\Dados -s .\Fornecedores
 
 ## O que poderia ter sido feito a mais:
 
